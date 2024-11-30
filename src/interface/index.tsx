@@ -10,7 +10,7 @@ export interface userProps {
 export interface UserContextType {
     user: userProps | null;
     setUser: Dispatch<React.SetStateAction<userProps | null>>;
-  }
+}
 
 export interface buttonNavProps {
     tittle: string;

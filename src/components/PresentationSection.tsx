@@ -25,7 +25,7 @@ function PresentationSection() {
     ];
 
     return (
-        <section className="p-2 me-2 card" style={{ marginLeft: 210 }}>
+        <section className="p-2 me-2 card z-1" style={{ marginLeft: 210 }}>
             <ModalCreatePresentation
                 isOpen={showModal}
                 closeModal={closeModal}
@@ -49,8 +49,8 @@ function PresentationSection() {
                     {!context?.presentations ? (
                         <PageLoader />
                     ) : (
-                        context?.presentations.map((item) => (
-                            <CardPresentation key={item.id} {...item} />
+                        context?.presentations.map((item, index) => (
+                            <CardPresentation key={index} {...item} />
                         ))
                     )}
                 </div>

@@ -8,8 +8,9 @@ import { PresentationsProvider } from "../../memory/PresentationsContext";
 import { UserContext } from "../../memory/UserProvider";
 
 function ModalCreatePresentation({ isOpen, closeModal }: modalProps) {
+    const context = useContext(PresentationsProvider);
+    const userContext = useContext(UserContext);
     const { loadingPost, SendData, success, error } = PostPresentation();
-    const nickNameRef = useRef<HTMLInputElement>(null);
     const titleRef = useRef<HTMLInputElement>(null);
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState({
@@ -17,8 +18,6 @@ function ModalCreatePresentation({ isOpen, closeModal }: modalProps) {
         type: "",
     });
     const closeAlert = () => setShowAlert(false);
-    const context = useContext(PresentationsProvider);
-    const userContext = useContext(UserContext);
 
     useEffect(() => {
         if (success) {
@@ -40,16 +39,18 @@ function ModalCreatePresentation({ isOpen, closeModal }: modalProps) {
     const handlePost = async (e: React.FormEvent) => {
         e.preventDefault();
         const data: postProps = {
-            nickname: nickNameRef.current!.value,
-            title: titleRef.current!.value,
+            nickname: userContext?.user?.nickname || "",
+            title: titleRef.current?.value.trim() || "",
         };
+        console.log(data);
         try {
             const response = await SendData(data);
             context?.dispatch({
                 type: "ADD_PRESENTATION",
                 presentations: response,
             });
-        } catch (error) {
+        } catch (err) {
+            console.error(err);
             setShowAlert(true);
             setAlertMessage({ message: "Error, try again", type: "danger" });
         }
@@ -102,8 +103,8 @@ function ModalCreatePresentation({ isOpen, closeModal }: modalProps) {
                                             placeholder="Nickname"
                                             aria-label="Nickname"
                                             aria-describedby="basic-addon1"
-                                            ref={nickNameRef}
                                             value={userContext?.user?.nickname}
+                                            readOnly
                                         />
                                     </div>
                                     <div className="input-group ">

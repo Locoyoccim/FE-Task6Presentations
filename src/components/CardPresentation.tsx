@@ -19,23 +19,31 @@ function CardPresentation({
     };
 
     return (
-        <Link className="text-decoration-none" to={`/editor/${title}/`}>
+        <>
             <div
                 className="card mb-1"
-                role="button"
                 style={{
                     width: 250,
                     height: 405,
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.3)",
                 }}
             >
-                <img
-                    src={desktopImg}
-                    className="card-img-top"
-                    alt="image presentation"
-                />
+                <Link className="text-decoration-none" to={`/editor/${title}/`}>
+                    <img
+                        src={desktopImg}
+                        className="card-img-top"
+                        alt="image presentation"
+                        role="button"
+                    />
+                </Link>
+
                 <div className="card-body d-flex flex-column justify-content-between">
-                    <h4 className="text-capitalize">{title}</h4>
+                    <Link
+                        className="text-decoration-none"
+                        to={`/editor/${title}/`}
+                    >
+                        <h4 className="text-capitalize text-dark">{title}</h4>
+                    </Link>
                     <div>
                         <p className="card-text m-0 p-0" style={{ height: 15 }}>
                             {creator_id}
@@ -52,7 +60,7 @@ function CardPresentation({
                     </div>
                 </div>
             </div>
-        </Link>
+        </>
     );
 }
 
