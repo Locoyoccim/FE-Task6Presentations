@@ -1,0 +1,14 @@
+.sample-canvas {
+    width: 100vw;
+    height: 91vh;
+    border-top: red 2px solid;
+}
+
+.full-screen-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
